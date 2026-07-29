@@ -1,0 +1,5 @@
+{
+    "cmake.configureSettings": {
+        "MUJOCO_DIR": "${env:HOME}/Softwares/mujoco-3.11.0"
+    }
+}

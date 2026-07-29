@@ -1,0 +1,8 @@
+output/
+build/
+.venv/
+*.so
+__pycache__/
+.pytest_cache/
+.DS_Store
+MUJOCO_LOG.TXT

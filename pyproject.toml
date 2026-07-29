@@ -1,0 +1,16 @@
+[project]
+name = "mujoco-camrender"
+version = "0.1.0"
+description = "MuJoCo multi-camera parallel rendering engine"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "mujoco>=3.11.0",
+    "numpy>=2.0",
+    "pillow>=10.0",
+    "pybind11>=3.0.4",
+]
+
+[build-system]
+requires = ["uv_build>=0.12.0,<0.13.0"]
+build-backend = "uv_build"
