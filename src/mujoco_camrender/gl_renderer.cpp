@@ -253,9 +253,22 @@ int GLRenderer::camera_count() const {
 
 void GLRenderer::set_camera_params(int cam_id, const CameraParams& params) {
     if (cam_id < 0 || cam_id >= static_cast<int>(impl_->cam_params.size())) return;
-    impl_->cam_params[cam_id] = params;
+
+    // 若调用方未显式指定相机类型（默认 FREE + fixedcamid=-1 + trackbodyid=-1），
+    // 视为「部分覆盖」（如只改分辨率），保留原相机的类型 / 固定索引 / 跟踪目标。
+    CameraParams merged = params;
+    if (params.cam_type == mjCAMERA_FREE &&
+        params.fixedcamid == -1 &&
+        params.trackbodyid == -1) {
+        const CameraParams& old = impl_->cam_params[cam_id];
+        merged.cam_type = old.cam_type;
+        merged.fixedcamid = old.fixedcamid;
+        merged.trackbodyid = old.trackbodyid;
+    }
+
+    impl_->cam_params[cam_id] = merged;
     // 同步到 mjvCamera
-    params_to_mjv_camera(params, impl_->cams[cam_id]);
+    params_to_mjv_camera(merged, impl_->cams[cam_id]);
 }
 
 void GLRenderer::reset_camera_params(int cam_id) {

@@ -64,8 +64,10 @@ GLContext& GLContext::operator=(GLContext&& o) noexcept {
 bool GLContext::create(int w, int h) {
     if (valid_) destroy();
 
-    // 全局初始化 GLFW（显式指定 X11 平台，避免 Wayland 下的 GTK 警告）
+    // 全局初始化 GLFW（显式指定 X11 平台，避免 Wayland 下的 GTK 警告；GLFW >= 3.4 才支持）
+#if GLFW_VERSION_MAJOR > 3 || (GLFW_VERSION_MAJOR == 3 && GLFW_VERSION_MINOR >= 4)
     glfwInitHint(GLFW_PLATFORM, GLFW_PLATFORM_X11);
+#endif
     if (!glfw_global_init()) return false;
 
     // 隐藏窗口 + 桌面 OpenGL

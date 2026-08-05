@@ -61,6 +61,10 @@ PYBIND11_MODULE(_mujoco_camrender, m) {
         .def_readwrite("orthographic", &CameraParams::orthographic)
         .def_readwrite("near_clip",    &CameraParams::near_clip)
         .def_readwrite("far_clip",     &CameraParams::far_clip)
+        .def_readwrite("cam_type",     &CameraParams::cam_type)
+        .def_readwrite("fixedcamid",   &CameraParams::fixedcamid)
+        .def_readwrite("trackbodyid",  &CameraParams::trackbodyid)
+        .def_readwrite("far_clip",     &CameraParams::far_clip)
         .def_property("position",
             [](const CameraParams& p) { return py::make_tuple(p.position[0], p.position[1], p.position[2]); },
             [](CameraParams& p, py::tuple t) {
